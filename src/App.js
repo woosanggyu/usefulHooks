@@ -1,53 +1,42 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
-// const App = () => {
-//   //useState 는 Array를 리턴함 첫번째에 item값이 두번째에 setItem이 위치
-//   const [item, setItem] = useState(1);
-//   const increamentItem = () => setItem(item + 1);
-//   const decreamentItem = () => setItem(item - 1);
 
-//   return (
-//     <div className="App">
-//       <h1>Hello {item}</h1>
-//       <h2>Start editing to see some magic happen!</h2>
-//       <button onClick={increamentItem}>Increament</button>
-//       <button onClick={decreamentItem}>Decreament</button>
-//     </div>
-//   );
-// }
+export const useInput = (initialValue, validator ) => {
+  const [ value , setValue ] = useState(initialValue);
+  const onChange = (event) => {
+    const {
+      target : {value}
+    } = event;
+    
+    let willUpdate = true;
 
-class App extends React.Component {
-  state = {
-    item : 1
+    if(typeof validator === "function") {
+      willUpdate = validator(value);
+    }
+
+    if(willUpdate) {
+      setValue(value);
+    }
+    
   }
+  return { value, onChange };
+}
 
-  increamentItem = () => {
-    this.setState(state => {
-      return {
-        item : state.item +1
-      }
-    })
-  }
+// useInput에서 return을 {value}로 주었기 때문에 App에서 사용할 때 value={name.value}로 받아야함
+// value={name.value} 대신에 {...name} 도 가능하다.
+// {...name}을 하게되면 name 안에 있는 모든걸 풀어주게된다.
 
-  decreamentItem = () => {
-    this.setState(state => {
-      return {
-        item : state.item -1
-      }
-    })
-  }
-  render() {
-    const {item} = this.state;
-    return(
-      <div className="App">
-        <h1>Hello {item}</h1>
-        <h2>Start editing to see some magic happen!</h2>
-        <button onClick={this.increamentItem}>Increament</button>
-        <button onClick={this.decreamentItem}>Decreament</button>
-      </div>
-    )
-  }
+const App = () => {
+  // const maxLen = value => value.length <= 10; 길이
+  const maxLen = value => !value.includes("@") && value.length <= 10; //문자열 및 길이체크
+  const name = useInput("Mr.", maxLen);
+
+  return (
+    <div className="App">
+      <h1>Hello</h1>
+      <input placeholder="Name" {...name} />
+    </div>
+  );
 }
 
 export default App;
