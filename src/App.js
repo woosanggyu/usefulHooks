@@ -1,40 +1,59 @@
 import React, { useState } from 'react';
 
 
-export const useInput = (initialValue, validator ) => {
-  const [ value , setValue ] = useState(initialValue);
-  const onChange = (event) => {
-    const {
-      target : {value}
-    } = event;
+// export const useInput = (initialValue, validator ) => {
+//   const [ value , setValue ] = useState(initialValue);
+//   const onChange = (event) => {
+//     const {
+//       target : {value}
+//     } = event;
     
-    let willUpdate = true;
+//     let willUpdate = true;
 
-    if(typeof validator === "function") {
-      willUpdate = validator(value);
-    }
+//     if(typeof validator === "function") {
+//       willUpdate = validator(value);
+//     }
 
-    if(willUpdate) {
-      setValue(value);
-    }
+//     if(willUpdate) {
+//       setValue(value);
+//     }
     
+//   }
+//   return { value, onChange };
+// }
+
+const content = [
+  {
+    tab : "Section 1",
+    content : "I'm the content of Section 1"
+  },
+  {
+    tab : "Section 2",
+    content : "I'm the content of Section 2"
   }
-  return { value, onChange };
+]
+
+const useTabs = (initailTab, allTabs) => {
+
+    const [currentIndex, setCurrentIndex] = useState(initailTab);
+    if(!allTabs || !Array.isArray(allTabs)) {
+      return null;
+    }
+    return {
+      currentItem : allTabs[currentIndex],
+      changeItem : setCurrentIndex
+    }
 }
 
-// useInput에서 return을 {value}로 주었기 때문에 App에서 사용할 때 value={name.value}로 받아야함
-// value={name.value} 대신에 {...name} 도 가능하다.
-// {...name}을 하게되면 name 안에 있는 모든걸 풀어주게된다.
-
 const App = () => {
-  // const maxLen = value => value.length <= 10; 길이
-  const maxLen = value => !value.includes("@") && value.length <= 10; //문자열 및 길이체크
-  const name = useInput("Mr.", maxLen);
-
+  const {currentItem, changeItem} = useTabs(0, content);
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <input placeholder="Name" {...name} />
+      {content.map((section,index) => (<button onClick={() => changeItem(index)}>{section.tab}</button>))}
+      <div>
+
+      {currentItem.content}
+      </div>
     </div>
   );
 }
