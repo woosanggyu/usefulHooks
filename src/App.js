@@ -35,20 +35,25 @@ import React, { useEffect, useState } from 'react';
 // }
 
 
-const App = () => {
-  const sayHello = () => console.log("Hello");
-  const [number, setNumber] = useState(0);
-  const [Anumber, setAnumber] = useState(0);
-  // useEffect는 업데이트 되는걸 감시한다.
-  // 첫번째 인자로는 Function(함수)를 받는다.
-  // 두번째 인자로는 dependency(deps)를 받는다.
-  // 두번째 배열안에 포함된 값이 변경될 때 useEffect는 실행된다.
-  useEffect(sayHello, [number, Anumber]);
+const useTitle = (initalTitle) => {
+  const [title, setTitle] = useState(initalTitle);
+  const updateTitle = () => {
+    const htmlTitle = document.querySelector('title');
+    htmlTitle.innerText = title
+  }
+  useEffect(updateTitle, [title])
+  return setTitle
+}
 
+const App = () => {  
+  const titleUpdate = useTitle("isLoading...");
+  setTimeout(() => {
+    titleUpdate("SangGyuHomePage")
+  }, 2000);
+  
   return (
     <div className="App">
-      <button onClick={() => setNumber(number+1)}>{number}</button>
-      <button onClick={() => setAnumber(Anumber+1)}>{Anumber}</button>
+      <h1>Hi</h1>
     </div>
   );
 }
