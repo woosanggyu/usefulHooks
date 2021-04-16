@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 
 // export const useInput = (initialValue, validator ) => {
@@ -34,26 +34,29 @@ import React, { useEffect, useState } from 'react';
 //     }
 // }
 
+// const useTitle = (initalTitle) => {
+//   const [title, setTitle] = useState(initalTitle);
+//   const updateTitle = () => {
+//     const htmlTitle = document.querySelector('title');
+//     htmlTitle.innerText = title
+//   }
+//   useEffect(updateTitle, [title])
+//   return setTitle
+// }
 
-const useTitle = (initalTitle) => {
-  const [title, setTitle] = useState(initalTitle);
-  const updateTitle = () => {
-    const htmlTitle = document.querySelector('title');
-    htmlTitle.innerText = title
-  }
-  useEffect(updateTitle, [title])
-  return setTitle
-}
 
 const App = () => {  
-  const titleUpdate = useTitle("isLoading...");
-  setTimeout(() => {
-    titleUpdate("SangGyuHomePage")
-  }, 2000);
+  const kimchi = useRef()
+  // 마운트가 되기전에 실행되는 문제를 직면하여, useEffect를 사용. 마운트가 되고난 후 실행하도록 변경
+  // getElementbyId 를 하는 것과 동일
+  useEffect(() => {
+    setTimeout(() => console.log(kimchi.current.focus()), 2000);
+  })
   
   return (
     <div className="App">
       <h1>Hi</h1>
+      <input ref={kimchi} placeholder='gd' />
     </div>
   );
 }
