@@ -20,8 +20,12 @@
 
 - useTitle
 
-    >html 타이틀을 변경하는 예제
+    >html 타이틀을 변경하는 hooks
 
 - useRef
 
     >참조. getelementbyId 등과 같은 의미로 쓸수있음
+
+- useClick
+
+    >useRef와 useEffect를 활용한 onClick eventListener를 추가하는 hooks

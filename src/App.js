@@ -44,19 +44,31 @@ import React, { useEffect, useState, useRef } from 'react';
 //   return setTitle
 // }
 
+const useClick = (onClick) => {
+
+  const element = useRef();
+  useEffect(() => {
+    if(typeof onClick !== "function") {
+      return;
+    }
+    if(element.current) {
+      element.current.addEventListener("click", onClick);
+    }
+    return () => {
+      if(element.current) {
+        element.current.removeEventListener("click", onClick)
+      }
+    }
+  }, [])
+  return element;
+}
 
 const App = () => {  
-  const kimchi = useRef()
-  // 마운트가 되기전에 실행되는 문제를 직면하여, useEffect를 사용. 마운트가 되고난 후 실행하도록 변경
-  // getElementbyId 를 하는 것과 동일
-  useEffect(() => {
-    setTimeout(() => console.log(kimchi.current.focus()), 2000);
-  })
-  
+  const Hellofunc = () => console.log("Hello")
+  const title = useClick(Hellofunc)
   return (
     <div className="App">
-      <h1>Hi</h1>
-      <input ref={kimchi} placeholder='gd' />
+      <h1 ref={title}>Hi</h1>
     </div>
   );
 }
