@@ -29,3 +29,7 @@
 - useClick
 
     >useRef와 useEffect를 활용한 onClick eventListener를 추가하는 hooks
+
+- useConfirm
+
+    >brower에서 경고를 할때 사용(경고창 Alert)
