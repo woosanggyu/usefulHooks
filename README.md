@@ -37,3 +37,7 @@
     > - brower에서 경고를 할때 사용(경고창 Alert)
     > 2. usePrevent
     > - 사용자가 페이지를 떠날 때 beforeunload event를 이용해 함수를 실행시키게됌.
+
+- useBeforeLeave
+
+    >mouse cursor가 화면을 벗어날 때 작동됌 (clientY 의 좌표가 0보다 작을때를 사용해서 위로 벗어났을 때 실행).

@@ -1,25 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 
-const usePreventLeave = () => {
-  const listener = (event) => {
-    console.log(event)
-    event.preventDefault();
-    //Chrome 에서는 returnValue가 필요하다.
-    event.returnValue = "Really this Page Leave? 🥺"
+const useBeforeLeave = (onBefore) => {
+  // if(typeof onBefore !== 'function') {
+  //   return;
+  // }
+  const handle = (event) => {
+    const { clientY } = event;
+    if(clientY <= 0) {
+      onBefore()
+    }
   }
-  const enablePrevent = () => window.addEventListener('beforeunload', listener)
-  
-  const disablePrevent = () => window.removeEventListener('beforeunload', listener);
-  
-  return { enablePrevent, disablePrevent };
+
+  useEffect(() => {
+    document.addEventListener('mouseleave', handle);
+    return () => document.removeEventListener('mouseleave', handle);
+  }, []);
 }
 
 const App = () => {  
-  const {enablePrevent , disablePrevent } = usePreventLeave()
+  const begForLife = () => console.log("Please don't Leave this Page...")
+  useBeforeLeave(begForLife);
   return (
     <div className="App">
-      <button onClick={enablePrevent}>Protect</button>
-      <button onClick={disablePrevent}>Unprotect</button>
+      <div> Hello SangGyu's Homepage</div>
     </div>
   );
 }
