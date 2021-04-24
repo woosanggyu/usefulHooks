@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const useBeforeLeave = (onBefore) => {
-  // if(typeof onBefore !== 'function') {
-  //   return;
-  // }
-  const handle = (event) => {
-    const { clientY } = event;
-    if(clientY <= 0) {
-      onBefore()
-    }
-  }
+const useFadeIn = (duration = 1, delay = 0) => {
 
+  const element = useRef();
   useEffect(() => {
-    document.addEventListener('mouseleave', handle);
-    return () => document.removeEventListener('mouseleave', handle);
-  }, []);
+    if(typeof duration !== "number" || typeof delay !== "number") {
+      return;
+    }
+
+    if(element.current) {
+      const { current } = element;
+      current.style.transition = `opacity ${duration}s ease-in-out ${delay}s`;
+      current.style.opacity = 1;
+    }
+  },[])
+  return {ref : element, style : { opacity : 0}};
 }
 
 const App = () => {  
-  const begForLife = () => console.log("Please don't Leave this Page...")
-  useBeforeLeave(begForLife);
+  const fadeInH1 = useFadeIn(1, 2);
+  const fadeInP = useFadeIn(5, 10);
   return (
     <div className="App">
-      <div> Hello SangGyu's Homepage</div>
+      <h1 {...fadeInH1}> Hello SangGyu's Homepage</h1>
+      <p {...fadeInP}> blah blah blah lol 😁</p>
     </div>
   );
 }
