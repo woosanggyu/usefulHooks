@@ -30,6 +30,10 @@
 
     >useRef와 useEffect를 활용한 onClick eventListener를 추가하는 hooks
 
-- useConfirm
-
-    >brower에서 경고를 할때 사용(경고창 Alert)
+  
+- usePrevent와 useConfirm은 기본적으로 훅이랄게 없다. 하지만 함수형 프로그래밍에 매우 적합하다. 
+  
+    > 1. useConfirm
+    > - brower에서 경고를 할때 사용(경고창 Alert)
+    > 2. usePrevent
+    > - 사용자가 페이지를 떠날 때 beforeunload event를 이용해 함수를 실행시키게됌.

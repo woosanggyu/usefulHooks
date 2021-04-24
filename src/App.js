@@ -1,14 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-
+const usePreventLeave = () => {
+  const listener = (event) => {
+    console.log(event)
+    event.preventDefault();
+    //Chrome 에서는 returnValue가 필요하다.
+    event.returnValue = "Really this Page Leave? 🥺"
+  }
+  const enablePrevent = () => window.addEventListener('beforeunload', listener)
+  
+  const disablePrevent = () => window.removeEventListener('beforeunload', listener);
+  
+  return { enablePrevent, disablePrevent };
+}
 
 const App = () => {  
-  const deleteWorld = () => console.log("Delete the World...");
-  const abort = () => console.log("Aborted")
-  const confirmDelete = useConfirm("Are you sure", deleteWorld, abort);
+  const {enablePrevent , disablePrevent } = usePreventLeave()
   return (
     <div className="App">
-      <button onClick={confirmDelete}>Delete the world</button>
+      <button onClick={enablePrevent}>Protect</button>
+      <button onClick={disablePrevent}>Unprotect</button>
     </div>
   );
 }
