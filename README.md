@@ -41,3 +41,7 @@
 - useBeforeLeave
 
     >mouse cursor가 화면을 벗어날 때 작동됌 (clientY 의 좌표가 0보다 작을때를 사용해서 위로 벗어났을 때 실행).
+
+- useFadeIn
+  
+    >useRef를 이용해 엘리먼트를 참조하며, 애니메이션을 넣어서 서서히 나타나게 한다.(딜레이도 추가 됌)
