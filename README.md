@@ -49,3 +49,7 @@
 - useNetwork
 
     >network의 상태를 체크하고, 상태가 변하는 것을 감시함.
+
+- useScroll
+
+    >scroll 하는 것을 감지하여, 변화를 줄 수 있음.
