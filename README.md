@@ -53,3 +53,7 @@
 - useScroll
 
     >scroll 하는 것을 감지하여, 변화를 줄 수 있음.
+
+- useFullscreen
+
+    >사용자가 버튼을 통해 fullScreen 과 smallscreen모드로 전환할 수 있음(각 브라우저별로 정리)
