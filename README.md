@@ -57,3 +57,8 @@
 - useFullscreen
 
     >사용자가 버튼을 통해 fullScreen 과 smallscreen모드로 전환할 수 있음(각 브라우저별로 정리)
+
+- useNotification
+
+
+    >사용자에게 Notification을 보냄, Hook이 아님 함수형 프로그래밍이다.
