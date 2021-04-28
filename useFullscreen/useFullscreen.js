@@ -1,4 +1,4 @@
-const useFullscreen = (callback) => {
+export const useFullscreen = (callback) => {
     const element = useRef()
     const checkRn = isFull => { 
       if(callback && typeof callback === 'function') {
