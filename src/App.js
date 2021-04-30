@@ -1,36 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
-
-const useNotification = (title, options) => {
-  if(!("Notification" in window)) {
-    return;
-  }
-
-  const fireNoti = () => {
-    if(Notification.permission !== 'granted') {
-      Notification.requestPermission().then(permission => {
-        if(permission === "granted") {
-          new Notification(title, options);
-        } else {
-          return;
-        }
-      });
-    } else {
-      new Notification(title, options);
-    }
-  }
-
-  return fireNoti;
-}
+import useAxios from './useAxios/useAxios';
 
 const App = () => {
-
-  const triggerNoti = useNotification("Good job! my friend", {
-    body : "Thank you for visit my Page"
-  });
+  const {loading, data, error, refetch} = useAxios({url:"https://cors-anywhere.herokuapp.com/https://yts.am/api/v2/list_movies.json"});
 
   return (
     <div className="App">
-      <button onClick={triggerNoti}>Click Me</button>
+      <h1>{data && data.status}</h1>
+      <h2>{loading && "Loading"}</h2>
+      <button onClick={refetch}>refetch</button>
     </div>
   );
 }
